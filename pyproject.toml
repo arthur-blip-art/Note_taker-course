@@ -1,0 +1,19 @@
+[build-system]
+
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+
+name= "note-taker"
+version= "0.1.0"
+description= "CLO tool to transcribe audio files using whsiper"
+
+dependencies= ["openai-whisper"]
+
+[project.scripts]
+
+note-taker= "main:main"
+
+[tool.setuptools]
+py-modules = ["main", "transcribe"]
