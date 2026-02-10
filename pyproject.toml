@@ -9,7 +9,7 @@ name= "note-taker"
 version= "0.1.0"
 description= "CLO tool to transcribe audio files using whsiper"
 
-dependencies= ["openai-whisper"]
+dependencies= ["platformdirs","openai-whisper"]
 
 [project.scripts]
 

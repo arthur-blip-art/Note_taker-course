@@ -3,6 +3,7 @@ import os
 import whisper
 from pathlib import Path
 from platformdirs import user_data_dir
+import subprocess
 
 
 def parse_args():
@@ -52,9 +53,11 @@ def build_output_path(file_output, audio_path):
 def transcribe_audio(model_name, audio_path, audio_transcript_path):
 
     try:
-        model=whisper.load_model(model_name)
+        print("Chargement du modèle")
+        model=whisper.load_model(model_name, device="cpu")
         result=model.transcribe(audio_path)
         result_text=result["text"]
+        print("Transcription en cours…")
         with open(audio_transcript_path, "w", encoding="UTF-8") as f:
             f.write(result_text)
 
@@ -64,4 +67,7 @@ def transcribe_audio(model_name, audio_path, audio_transcript_path):
         raise SystemExit(1)
 
     print(f"transcription réussie")
+    
+    subprocess.run(["open",audio_transcript_path])
+
     return
