@@ -1,13 +1,15 @@
 import argparse
 import os
-import whisper
 from pathlib import Path
-from platformdirs import user_data_dir
 import subprocess
+
+import whisper
+from platformdirs import user_data_dir
 
 
 def parse_args():
-    
+    """parsing the CLI arguments and returning them"""
+
     parser = argparse.ArgumentParser(
     description="Transcrit un fichier audio en texte avec le modèle Whisper"
     )
@@ -28,7 +30,8 @@ def parse_args():
 
 
 def validate_inputs(audio_path):
-    
+    """Validate the path, and stops execution if invalid"""
+
     if not os.path.exists(audio_path):
         print (f"le fichier existe pas")
         raise SystemExit(1)
@@ -39,7 +42,7 @@ def validate_inputs(audio_path):
     return
 
 def build_output_path(file_output, audio_path):
-
+    """Create the transcript directory, returns the full output file path"""
     base_dir = Path(user_data_dir("note-taker")) / file_output
     base_dir.mkdir(parents=True, exist_ok=True)
 
@@ -51,6 +54,7 @@ def build_output_path(file_output, audio_path):
 
 
 def transcribe_audio(model_name, audio_path, audio_transcript_path):
+    """transcribe the audio using open ai model, and open the file"""
 
     try:
         print("Chargement du modèle")
